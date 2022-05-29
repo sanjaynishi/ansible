@@ -1,8 +1,19 @@
 ---
 - name: Test Playbook
   hosts: all
+
   tasks:
+    - name: Install IIS
+      win_feature:
+        name: Web-Server
+        state: present
+
     - name: win_service usage
       win_service:
         name: spooler
         state: started
+
+    - name: Web site index.html created
+      win_copy:
+        content: "Hello World!"
+        dest: C:\Inetpub\WWW\index.html
